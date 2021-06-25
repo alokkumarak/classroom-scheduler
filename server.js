@@ -39,7 +39,7 @@ app.use('/',BatchRouter);
 
 
 
-app.listen(PORT,()=>{
+app.listen(process.env.PORT || PORT,()=>{
     console.log(`app is running on the PORT http://localhost:${PORT}`);
 })
 
