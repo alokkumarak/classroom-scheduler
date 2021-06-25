@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title?title:"Classroom Scheduler" %></title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="menu-toggler">
+            <div class="bar half start"></div>
+            <div class="bar"></div>
+            <div class="bar half end"></div>
+        </div>
+        <nav class="top-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="#" class="nav-link"><i class="fa fa-users"></i><span>Classroom Scheduler</span>
+                </li>
+
+                <li>
+                    <a href="#addTeacher" class="nav-link"><i class="fa fa-chalkboard-teacher"></i><spna style="margin-left: 10px;">Add Teacher</spna></a>
+                </li>
+
+                <li>
+                    <a href="#addBatches" class="nav-link"><i class="fa fa-folder-plus"></i><span style="margin-left: 10px;">Add Batches</span></a>
+                </li>
+                <li>
+                    <a href="#scheduled" class="nav-link"><i class="fa fa-calendar-week"></i><span style="margin-left: 10px;">Sceduled Batches</span></a>
+                </li>
+               
+                <li>
+                    <a href="#" class="nav-link"><i class="fas fa-power-off"></i><span style="margin-left: 10px;">Logout</span></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+   
+    
+    <section class="section">
+        <h1 id="scheduled">Scheduled Batches</h1>
+  
+        <section class="card-section">
+            <% print.forEach(function(user){ %>
+       
+            <div class="card">
+                <div class="up">
+                     <span>Teacher Name: <%= user.teacher_name %> 
+                </div>
+                <div class="down">
+                     <div  class="downDiv">
+                         <span>Batch Time:</span> <%=user.starting_time%>  to <%=user.ending_time %>
+                     </div>
+                     <div class="downDiv">
+                       <span>Subject:</span>  <%=user.subject %>
+                    </div >
+                    <div class="downDivB">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                        
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </section>
+       
+        
+        <h1 id="List">Teacher's List</h1>
+        <section class="card-section">
+            <% display.forEach(function(teacher){ %>
+            <div class="card1">
+                <div class="up">
+                     <span>Teacher Name:</span> <%= teacher.name %> 
+                </div>
+                <div class="down">
+                    
+                     <div class="downDiv">
+                         <span>Teacher Id: </span> <%= teacher.saparate_id %> 
+                     </div>
+                     <div class="downDiv">
+                       <span>Subject:</span>   <%= teacher.sub %>  
+                    </div >
+                    <div class="downDivB">
+                        <button>Edit</button>
+                       
+                        <button><a href="<%= `/api/teacher/${teacher.id}?_method=DELETE`%>" >Delete</a></button>
+                       
+                        
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+           
+            
+        </section>
+
+        <section class="addTeacherForm"  style="margin-top: 20px;">
+            <h1 id="addTeacher" style="margin-top: 30px;">
+                Add Teacher
+            </h1>
+                <form action="/api/teacher" method="POST" class="form">
+                    <input type="text" placeholder="Name Of the Teacher" name="name" required/>
+                    <input type="number" placeholder="Give Him a Seperate id " name="saparate_id"  required/>
+                    <input type="text" placeholder="Teacher's Subject" name="sub" required/>
+  
+                    <input type="submit" value="submit" />
+                </form>
+  
+        </section>
+
+        
+        <section class="addTeacherForm"  style="margin-top: 20px;margin-bottom: 50px;">
+            <h1 id="addBatches" style="margin-top: 30px;">
+                Add Batches
+            </h1>
+                <form action="/api/batch" method="POST" class="form">
+                    <input type="time" placeholder="Enter Starting Time of The Batch" name="starting_time" required />
+                    <input type="time" placeholder="Enter Ending Time of The Batch" name="ending_time" required />
+                    <input type="text" placeholder="Enter Teacher's Name" name="teacher_name" required/>
+                    <input type="text" placeholder="Enter Teacher's Subject" name="subject" required/>
+  
+                    <input type="submit" value="submit" />
+                </form>
+  
+        </section>
+
+
+
+
+    </section>
+    
+
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+
+    <script src="/static/js/index.js"></script>
+</body>
+</html>
